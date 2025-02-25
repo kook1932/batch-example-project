@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: batch
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:batch-db;MODE=MySQL
+    username: sa
+    password:
+
+  h2:
+      console:
+        enabled: true
+        path: /h2-console
+
+  batch:
+    job:
+        enabled: false
+    jdbc:
+      initialize-schema: always
+
+logging:
+  level:
+    org.springframework.batch: INFO
+    com.example.batch: DEBUG
