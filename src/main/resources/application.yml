@@ -8,6 +8,7 @@ spring:
   batch:
     job:
       names: ${job.name:NONE}
+      enabled: false
 
 ---
 spring:
@@ -18,7 +19,7 @@ spring:
   datasource:
     hikari:
       driver-class-name: org.h2.Driver
-      jdbc-url: jdbc:h2:mem:batch-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
+      jdbc-url: jdbc:h2:tcp://localhost/~/batch-db;MODE=MySQL
       username: sa
       password:
 
