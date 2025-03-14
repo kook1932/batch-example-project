@@ -78,6 +78,28 @@ public class Restaurant {
     private String traditionalBusinessMainFood;    // 전통업소주된음식
     private String homepage;                       // 홈페이지
 
+    // 14.  최종 필드(parsing 용)
+    private String finalField;
+
+    // 빈문자열 치환
+    public void sanitizeEmptyFields() {
+        // 현재 클래스의 모든 필드를 순회 (부모 클래스의 필드는 제외)
+        for (var field : this.getClass().getDeclaredFields()) {
+            // String 타입 필드만 처리
+            if (field.getType().equals(String.class)) {
+                field.setAccessible(true);
+                try {
+                    String value = (String) field.get(this);
+                    if (value != null && value.trim().isEmpty()) {
+                        field.set(this, null);
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException("Failed to sanitize field: " + field.getName(), e);
+                }
+            }
+        }
+    }
+
     // CSV 파일의 헤더(필드명) 순서를 반환하는 메서드
     public static String[] getFieldNames() {
         return new String[]{
@@ -92,7 +114,7 @@ public class Restaurant {
                 "waterSupplyFacilityName", "totalEmployeeCount", "headOfficeEmployeeCount",
                 "factoryOfficeEmployeeCount", "factorySalesEmployeeCount", "factoryProductionEmployeeCount",
                 "buildingOwnershipType", "depositAmount", "monthlyRent", "multiUseBusinessFlag",
-                "facilityTotalScale", "traditionalBusinessNumber", "traditionalBusinessMainFood", "homepage"
+                "facilityTotalScale", "traditionalBusinessNumber", "traditionalBusinessMainFood", "homepage", "finalField"
         };
     }
 
